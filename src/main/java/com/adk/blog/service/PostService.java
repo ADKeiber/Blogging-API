@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.adk.blog.model.Post;
+import com.adk.blog.model.Tag;
 
 @Service
 public class PostService implements IPostService{
@@ -24,12 +25,6 @@ public class PostService implements IPostService{
 
 	@Override
 	public List<Post> getPostByTitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Post> getPostByAuthor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -54,6 +49,12 @@ public class PostService implements IPostService{
 
 	@Override
 	public Post deletePostById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> getPostByTag(Tag tag) {
 		// TODO Auto-generated method stub
 		return null;
 	}

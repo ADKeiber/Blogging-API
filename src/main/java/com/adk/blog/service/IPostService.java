@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.adk.blog.model.Post;
+import com.adk.blog.model.Tag;
 
 public interface IPostService {
 	
@@ -13,8 +14,8 @@ public interface IPostService {
 	//Read
 	public List<Post> getAllPosts();
 	public List<Post> getPostByTitle();
-	public List<Post> getPostByAuthor();
 	public List<Post> getPostByDate(LocalDate localDate);
+	public List<Post> getPostByTag(Tag tag);
 	public Post getPostById(String id);
 	
 	//Update

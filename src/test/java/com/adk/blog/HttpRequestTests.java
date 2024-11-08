@@ -60,10 +60,49 @@ public class HttpRequestTests {
 	}
 	
 	@Test
-	void shouldReturnPostAdded() throws Exception {
+	void shouldReturnPostAddedNoID() throws Exception {
 		
 		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("1", "test"));
+		tags.add(new Tag());
+		tags.get(0).setValue("TEST");
+		
+		Post post = new Post();
+		post.setContents("Test Contents");
+		post.setTags(tags);
+		post.setTitle("Test Title");
+		post.setPublishDate(LocalDate.now());
+		
+		Post returnedPost = new Post();
+		returnedPost.setId("1");
+		returnedPost.setContents("Test Contents");
+		returnedPost.setTags(tags);
+		returnedPost.setTitle("Test Title");
+		returnedPost.setPublishDate(LocalDate.now());
+		
+		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+	    String requestJson = ow.writeValueAsString(post);
+		when(service.addPost(post)).thenReturn(returnedPost);
+		
+		this.mockMvc.perform(
+				post("/createPost").contentType(APPLICATION_JSON_UTF8)
+		        .content(requestJson))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
+				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
+	}
+	
+	@Test
+	void shouldReturnPostAddedWithIDs() throws Exception {
+		
+		List<Tag> tags = new LinkedList<>();
+		tags.add(new Tag("1", "TEST"));
+		
 		Post post = new Post("1", "Test Title", "Test Contents", LocalDate.now(), tags);
 		
 		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
@@ -85,65 +124,111 @@ public class HttpRequestTests {
 	}
 	
 	@Test
-	void shouldReturnNullAddPostMissingTitle() throws Exception {
+	void shouldReturnWithDefaultIDAddPostMissingTitle() throws Exception {
 		
 		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("1", "test"));
-		Post post = new Post("1", "", "Test Contents", LocalDate.now(), tags);
+		tags.add(new Tag("0", "TEST"));
+		
+		Post post = new Post();
+		post.setContents("Test Contents");
+		post.setTags(tags);
+		post.setTitle("");
+		post.setPublishDate(LocalDate.now());
+		
+		Post returnedPost = new Post();
+		returnedPost.setId("0");
+		returnedPost.setContents("Test Contents");
+		returnedPost.setTags(tags);
+		returnedPost.setTitle("");
+		returnedPost.setPublishDate(LocalDate.now());
 		
 		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 	    String requestJson = ow.writeValueAsString(post);
-	    
-		when(service.addPost(post)).thenReturn(post);
+		when(service.addPost(post)).thenReturn(returnedPost);
 		
 		this.mockMvc.perform(
 				post("/createPost").contentType(APPLICATION_JSON_UTF8)
 		        .content(requestJson))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Post was missing title... Did not save into database.")));
+				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
+				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
 	}
 	
 	@Test
-	void shouldReturnNullAddPostMissingContents() throws Exception {
+	void shouldReturnPostWithDefaultIDAddPostMissingContents() throws Exception {
 		
 		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("1", "test"));
-		Post post = new Post("1", "Test Title", "", LocalDate.now(), tags);
+		tags.add(new Tag("0", "TEST"));
+		
+		Post post = new Post();
+		post.setContents("");
+		post.setTags(tags);
+		post.setTitle("Test Title");
+		post.setPublishDate(LocalDate.now());
+		
+		Post returnedPost = new Post();
+		returnedPost.setId("0");
+		returnedPost.setContents("");
+		returnedPost.setTags(tags);
+		returnedPost.setTitle("Test Title");
+		returnedPost.setPublishDate(LocalDate.now());
 		
 		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 	    String requestJson = ow.writeValueAsString(post);
-	    
-		when(service.addPost(post)).thenReturn(post);
+		when(service.addPost(post)).thenReturn(returnedPost);
 		
 		this.mockMvc.perform(
 				post("/createPost").contentType(APPLICATION_JSON_UTF8)
 		        .content(requestJson))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Post was missing contents... Did not save into database.")));
+				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
+				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
 	}
 	
 	@Test
 	void shouldReturnNullAddPostMissingPublishDate() throws Exception {
 		
 		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("1", "test"));
-		Post post = new Post("1", "Test Title", "Test Contents", null, tags);
+		tags.add(new Tag("0", "TEST"));
+		
+		Post post = new Post();
+		post.setContents("Test Contents");
+		post.setTags(tags);
+		post.setTitle("Test Title");
+		
+		Post returnedPost = new Post();
+		returnedPost.setId("0");
+		returnedPost.setContents("Test Contents");
+		returnedPost.setTags(tags);
+		returnedPost.setTitle("Test Title");
 		
 		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 	    String requestJson = ow.writeValueAsString(post);
-	    
-		when(service.addPost(post)).thenReturn(post);
+		when(service.addPost(post)).thenReturn(returnedPost);
 		
 		this.mockMvc.perform(
 				post("/createPost").contentType(APPLICATION_JSON_UTF8)
 		        .content(requestJson))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Post was missing publish date... Did not save into database.")));
+				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate()))
+				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
 	}
 }

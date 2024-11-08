@@ -24,12 +24,11 @@ public class PostService implements IPostService{
 	@Override
 	public Post addPost(Post post) {
 		//Checks certain fields that are required
-		if(post.getTitle().isBlank() || post.getTitle() == null)
+		if(post.getTitle().isBlank() || post.getTitle() == null || post.getContents().isBlank() || 
+				post.getContents() == null || post.getPublishDate() == null) {
+			post.setId("0");
 			return post;
-		if(post.getContents().isBlank() || post.getContents() == null)
-			return post;
-		if(post.getPublishDate() == null)
-			return post;
+		}
 		
 		List<Tag> tags = new LinkedList<>();
 		for(int i = 0; i < post.getTags().size(); i++) {

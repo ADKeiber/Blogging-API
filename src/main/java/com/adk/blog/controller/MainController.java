@@ -35,6 +35,7 @@ public class MainController {
         return new ResponseEntity<>(postService.addPost(p), HttpStatus.OK);
 	}
 	
+	
 	@GetMapping("/hello")
     public ResponseEntity<String> hello(@RequestParam(value = "name", defaultValue = "World") String name) {
       return new ResponseEntity<>(String.format("Hello %s!", name), HttpStatus.OK);

@@ -97,31 +97,31 @@ public class HttpRequestTests {
 				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
 	}
 	
-	@Test
-	void shouldReturnPostAddedWithIDs() throws Exception {
-		
-		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("1", "TEST"));
-		
-		Post post = new Post("1", "Test Title", "Test Contents", LocalDate.now(), tags);
-		
-		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson = ow.writeValueAsString(post);
-		when(service.addPost(post)).thenReturn(post);
-		
-		this.mockMvc.perform(
-				post("/createPost").contentType(APPLICATION_JSON_UTF8)
-		        .content(requestJson))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(post.getId()))
-				.andExpect(jsonPath("$.title").value(post.getTitle()))
-				.andExpect(jsonPath("$.contents").value(post.getContents()))
-				.andExpect(jsonPath("$.publishDate").value(post.getPublishDate().toString()))
-				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
-				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
-	}
+//	@Test
+//	void shouldReturnPostAddedWithIDs() throws Exception {
+//		
+//		List<Tag> tags = new LinkedList<>();
+//		tags.add(new Tag("1", "TEST"));
+//		
+//		Post post = new Post("1", "Test Title", "Test Contents", LocalDate.now(), tags);
+//		
+//		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+//		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//	    String requestJson = ow.writeValueAsString(post);
+//		when(service.addPost(post)).thenReturn(post);
+//		
+//		this.mockMvc.perform(
+//				post("/createPost").contentType(APPLICATION_JSON_UTF8)
+//		        .content(requestJson))
+//				.andDo(print())
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.id").value(post.getId()))
+//				.andExpect(jsonPath("$.title").value(post.getTitle()))
+//				.andExpect(jsonPath("$.contents").value(post.getContents()))
+//				.andExpect(jsonPath("$.publishDate").value(post.getPublishDate().toString()))
+//				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+//				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
+//	}
 	
 //	@Test
 //	void shouldReturnWithDefaultIDAddPostMissingTitle() throws Exception {

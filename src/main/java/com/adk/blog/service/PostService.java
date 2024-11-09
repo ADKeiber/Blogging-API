@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.adk.blog.errorhandling.FieldBlankException;
 import com.adk.blog.model.Post;
 import com.adk.blog.model.Tag;
 import com.adk.blog.repo.PostRepo;
@@ -23,16 +24,25 @@ public class PostService implements IPostService{
 	
 	@Override
 	public Post addPost(Post post) {
+		
 		//Checks certain fields that are required
-		if(post.getTitle().isBlank() || post.getTitle() == null || post.getContents().isBlank() || 
-				post.getContents() == null || post.getPublishDate() == null) {
-			post.setId("0");
-			return post;
-		}
+		if(post.getTitle() == null || post.getTitle().isBlank())
+			throw new FieldBlankException(Post.class, "Title", String.class.toString());
+		if(post.getContents() == null || post.getContents().isBlank())
+			throw new FieldBlankException(Post.class, "Contents", String.class.toString());
+		if(post.getPublishDate() == null)
+			throw new FieldBlankException(Post.class, "Publish Date", LocalDate.class.toString());
+		
 		List<Tag> tags = new LinkedList<>();
 		for(int i = 0; i < post.getTags().size(); i++) {
+			
 			Tag tag = post.getTags().get(i);
+			
+			if(tag.getValue() == null || tag.getValue().isBlank())
+				throw new FieldBlankException(Tag.class, "Value", String.class.toString());
+			
 			Tag tagFromRepo = tagRepo.findTagByValue(tag.getValue());
+			
 			if(tagFromRepo == null) {
 				tag = tagRepo.save(tag);
 				tags.add(tag);
@@ -42,14 +52,15 @@ public class PostService implements IPostService{
 				
 		}
 		post.setTags(tags);
-		Post p = postRepo.save(post);
-		return p;
+		System.out.println("TAGS: " + post.getTags().toString());
+		return postRepo.save(post);
 	}
 
 	@Override
 	public List<Post> getAllPosts() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Post> posts = postRepo.findAll();
+		System.out.println("POSTS:" + posts);
+		return posts;
 	}
 
 	@Override

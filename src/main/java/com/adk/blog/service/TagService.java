@@ -2,10 +2,18 @@ package com.adk.blog.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.adk.blog.model.Post;
 import com.adk.blog.model.Tag;
+import com.adk.blog.repo.TagRepo;
 
+@Service
 public class TagService implements ITagService{
+	
+	@Autowired
+	private TagRepo tagRepo;
 
 	@Override
 	public Tag addTag(Tag tag) {
@@ -15,8 +23,7 @@ public class TagService implements ITagService{
 
 	@Override
 	public List<Tag> getAllTags() {
-		// TODO Auto-generated method stub
-		return null;
+		return tagRepo.findAll();
 	}
 
 	@Override

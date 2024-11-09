@@ -49,7 +49,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(BAD_REQUEST, error, ex));
     }
 
-
     /**
      * Handle HttpMediaTypeNotSupportedException. This one triggers when JSON is invalid as well.
      *
@@ -172,6 +171,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request) {
         ApiError apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(String.format("The parameter '%s' of value '%s' could not be converted to type '%s'", ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName()));
+        apiError.setDebugMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+    
+    /**
+     * Handle Exception, handle exception for when an entity's field requires a value 
+     *
+     * @param ex the Exception
+     * @return the ApiError object
+     */
+    @ExceptionHandler(FieldBlankException.class)
+    protected ResponseEntity<Object> handleFieldBlank(FieldBlankException ex) {
+        ApiError apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage("One of the Required fields was missing for the passed in entity!");
         apiError.setDebugMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }

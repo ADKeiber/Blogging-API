@@ -29,7 +29,6 @@ public class PostService implements IPostService{
 			post.setId("0");
 			return post;
 		}
-		
 		List<Tag> tags = new LinkedList<>();
 		for(int i = 0; i < post.getTags().size(); i++) {
 			Tag tag = post.getTags().get(i);
@@ -44,7 +43,6 @@ public class PostService implements IPostService{
 		}
 		post.setTags(tags);
 		Post p = postRepo.save(post);
-		
 		return p;
 	}
 

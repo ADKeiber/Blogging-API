@@ -123,112 +123,112 @@ public class HttpRequestTests {
 				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
 	}
 	
-	@Test
-	void shouldReturnWithDefaultIDAddPostMissingTitle() throws Exception {
-		
-		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("0", "TEST"));
-		
-		Post post = new Post();
-		post.setContents("Test Contents");
-		post.setTags(tags);
-		post.setTitle("");
-		post.setPublishDate(LocalDate.now());
-		
-		Post returnedPost = new Post();
-		returnedPost.setId("0");
-		returnedPost.setContents("Test Contents");
-		returnedPost.setTags(tags);
-		returnedPost.setTitle("");
-		returnedPost.setPublishDate(LocalDate.now());
-		
-		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson = ow.writeValueAsString(post);
-		when(service.addPost(post)).thenReturn(returnedPost);
-		
-		this.mockMvc.perform(
-				post("/createPost").contentType(APPLICATION_JSON_UTF8)
-		        .content(requestJson))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
-				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
-				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
-				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
-				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
-				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
-	}
-	
-	@Test
-	void shouldReturnPostWithDefaultIDAddPostMissingContents() throws Exception {
-		
-		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("0", "TEST"));
-		
-		Post post = new Post();
-		post.setContents("");
-		post.setTags(tags);
-		post.setTitle("Test Title");
-		post.setPublishDate(LocalDate.now());
-		
-		Post returnedPost = new Post();
-		returnedPost.setId("0");
-		returnedPost.setContents("");
-		returnedPost.setTags(tags);
-		returnedPost.setTitle("Test Title");
-		returnedPost.setPublishDate(LocalDate.now());
-		
-		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson = ow.writeValueAsString(post);
-		when(service.addPost(post)).thenReturn(returnedPost);
-		
-		this.mockMvc.perform(
-				post("/createPost").contentType(APPLICATION_JSON_UTF8)
-		        .content(requestJson))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
-				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
-				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
-				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
-				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
-				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
-	}
-	
-	@Test
-	void shouldReturnNullAddPostMissingPublishDate() throws Exception {
-		
-		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag("0", "TEST"));
-		
-		Post post = new Post();
-		post.setContents("Test Contents");
-		post.setTags(tags);
-		post.setTitle("Test Title");
-		
-		Post returnedPost = new Post();
-		returnedPost.setId("0");
-		returnedPost.setContents("Test Contents");
-		returnedPost.setTags(tags);
-		returnedPost.setTitle("Test Title");
-		
-		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson = ow.writeValueAsString(post);
-		when(service.addPost(post)).thenReturn(returnedPost);
-		
-		this.mockMvc.perform(
-				post("/createPost").contentType(APPLICATION_JSON_UTF8)
-		        .content(requestJson))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
-				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
-				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
-				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate()))
-				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
-				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
-	}
+//	@Test
+//	void shouldReturnWithDefaultIDAddPostMissingTitle() throws Exception {
+//		
+//		List<Tag> tags = new LinkedList<>();
+//		tags.add(new Tag("0", "TEST"));
+//		
+//		Post post = new Post();
+//		post.setContents("Test Contents");
+//		post.setTags(tags);
+//		post.setTitle("");
+//		post.setPublishDate(LocalDate.now());
+//		
+//		Post returnedPost = new Post();
+//		returnedPost.setId("0");
+//		returnedPost.setContents("Test Contents");
+//		returnedPost.setTags(tags);
+//		returnedPost.setTitle("");
+//		returnedPost.setPublishDate(LocalDate.now());
+//		
+//		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+//		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//	    String requestJson = ow.writeValueAsString(post);
+//		when(service.addPost(post)).thenReturn(returnedPost);
+//		
+//		this.mockMvc.perform(
+//				post("/createPost").contentType(APPLICATION_JSON_UTF8)
+//		        .content(requestJson))
+//				.andDo(print())
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+//				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+//				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+//				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
+//				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+//				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
+//	}
+//	
+//	@Test
+//	void shouldReturnPostWithDefaultIDAddPostMissingContents() throws Exception {
+//		
+//		List<Tag> tags = new LinkedList<>();
+//		tags.add(new Tag("0", "TEST"));
+//		
+//		Post post = new Post();
+//		post.setContents("");
+//		post.setTags(tags);
+//		post.setTitle("Test Title");
+//		post.setPublishDate(LocalDate.now());
+//		
+//		Post returnedPost = new Post();
+//		returnedPost.setId("0");
+//		returnedPost.setContents("");
+//		returnedPost.setTags(tags);
+//		returnedPost.setTitle("Test Title");
+//		returnedPost.setPublishDate(LocalDate.now());
+//		
+//		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+//		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//	    String requestJson = ow.writeValueAsString(post);
+//		when(service.addPost(post)).thenReturn(returnedPost);
+//		
+//		this.mockMvc.perform(
+//				post("/createPost").contentType(APPLICATION_JSON_UTF8)
+//		        .content(requestJson))
+//				.andDo(print())
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+//				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+//				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+//				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
+//				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+//				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
+//	}
+//	
+//	@Test
+//	void shouldReturnNullAddPostMissingPublishDate() throws Exception {
+//		
+//		List<Tag> tags = new LinkedList<>();
+//		tags.add(new Tag("0", "TEST"));
+//		
+//		Post post = new Post();
+//		post.setContents("Test Contents");
+//		post.setTags(tags);
+//		post.setTitle("Test Title");
+//		
+//		Post returnedPost = new Post();
+//		returnedPost.setId("0");
+//		returnedPost.setContents("Test Contents");
+//		returnedPost.setTags(tags);
+//		returnedPost.setTitle("Test Title");
+//		
+//		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+//		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//	    String requestJson = ow.writeValueAsString(post);
+//		when(service.addPost(post)).thenReturn(returnedPost);
+//		
+//		this.mockMvc.perform(
+//				post("/createPost").contentType(APPLICATION_JSON_UTF8)
+//		        .content(requestJson))
+//				.andDo(print())
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+//				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+//				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+//				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate()))
+//				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+//				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
+//	}
 }

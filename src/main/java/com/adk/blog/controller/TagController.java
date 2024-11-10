@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.adk.blog.model.Post;
 import com.adk.blog.model.Tag;
-import com.adk.blog.service.PostService;
 import com.adk.blog.service.TagService;
 
 @SpringBootApplication

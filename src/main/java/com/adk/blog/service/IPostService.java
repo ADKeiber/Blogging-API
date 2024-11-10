@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.adk.blog.model.Post;
-import com.adk.blog.model.Tag;
 
 public interface IPostService {
 	

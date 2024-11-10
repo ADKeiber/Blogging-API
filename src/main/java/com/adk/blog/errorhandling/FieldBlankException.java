@@ -3,8 +3,10 @@ package com.adk.blog.errorhandling;
 import org.springframework.util.StringUtils;
 
 public class FieldBlankException extends RuntimeException {
+	
+	private static final long serialVersionUID = -8104227912438844281L;
 
-    public FieldBlankException(Class clazz, String missingField, String valueType) {
+	public FieldBlankException(Class<?> clazz, String missingField, String valueType) {
         super(FieldBlankException.generateMessage(clazz.getSimpleName(), missingField, valueType));
     }
 

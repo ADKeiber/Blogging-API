@@ -8,7 +8,9 @@ import org.springframework.util.StringUtils;
 
 public class EntityNotFoundException extends RuntimeException {
 
-    public EntityNotFoundException(Class clazz, String... searchParamsMap) {
+	private static final long serialVersionUID = -9197464728969353686L;
+
+	public EntityNotFoundException(Class<?> clazz, String... searchParamsMap) {
         super(EntityNotFoundException.generateMessage(clazz.getSimpleName(), toMap(String.class, String.class, searchParamsMap)));
     }
 
@@ -18,8 +20,8 @@ public class EntityNotFoundException extends RuntimeException {
                 searchParams;
     }
 
-    private static <K, V> Map<K, V> toMap(
-            Class<K> keyType, Class<V> valueType, Object... entries) {
+    private static Map<String, String> toMap(
+            Class<String> keyType, Class<String> valueType, String... entries) {
         if (entries.length % 2 == 1)
             throw new IllegalArgumentException("Invalid entries");
         return IntStream.range(0, entries.length / 2).map(i -> i * 2)

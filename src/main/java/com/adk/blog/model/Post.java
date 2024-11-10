@@ -39,7 +39,7 @@ public class Post {
 	
 	private LocalDate publishDate;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(
 			name = "post_tag",
 			joinColumns = @JoinColumn(name = "post_id"),

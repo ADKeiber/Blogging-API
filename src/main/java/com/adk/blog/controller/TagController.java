@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,32 +17,19 @@ import com.adk.blog.service.TagService;
 
 @SpringBootApplication
 @RestController
-public class MainController {
-	
-	@Autowired
-	private PostService postService;
+@RequestMapping("/tag")
+public class TagController {
 	
 	@Autowired
 	private TagService tagService;
-	
-	@PostMapping("/createPost")
-	public ResponseEntity<Object> createPost(@RequestBody Post p) {
-        return new ResponseEntity<>(postService.addPost(p), HttpStatus.OK);
-	}
-	
-	@GetMapping("/getAllPosts")
-	public ResponseEntity<Object> getAllPosts() {
-        return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
-	}
 	
 	@GetMapping("/hello")
     public ResponseEntity<String> hello(@RequestParam(value = "name", defaultValue = "World") String name) {
       return new ResponseEntity<>(String.format("Hello %s!", name), HttpStatus.OK);
     }
 	
-	@GetMapping("/getAllTags")
+	@GetMapping("/getAll")
 	public ResponseEntity<Object> getAllTags() {
         return new ResponseEntity<>(tagService.getAllTags(), HttpStatus.OK);
 	}
-
 }

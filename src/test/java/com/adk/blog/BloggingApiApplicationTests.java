@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.adk.blog.controller.MainController;
+import com.adk.blog.controller.TagController;
 
 @SpringBootTest
 class BloggingApiApplicationTests {
 	
 	@Autowired
-	private MainController controller;
+	private TagController controller;
 
 	@Test
 	void contextLoads() {

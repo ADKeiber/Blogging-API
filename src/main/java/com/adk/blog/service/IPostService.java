@@ -13,15 +13,15 @@ public interface IPostService {
 
 	//Read
 	public List<Post> getAllPosts();
-	public List<Post> getPostByTitle();
-	public List<Post> getPostByDate(LocalDate localDate);
-	public List<Post> getPostByTag(Tag tag);
+	public List<Post> getPostsByTitle(String title);
+	public List<Post> getPostsByDate(LocalDate localDate);
+	public List<Post> getPostsByTagValue(String tagValue);
 	public Post getPostById(String id);
 	
 	//Update
 	public Post editPost(String id, Post post);
 	
 	//Delete
-	public Post deletePostById(String id);
+	public void deletePostById(String id);
 	
 }

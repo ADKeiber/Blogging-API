@@ -27,7 +27,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.adk.blog.controller.MainController;
+import com.adk.blog.controller.TagController;
 import com.adk.blog.model.Post;
 import com.adk.blog.model.Tag;
 import com.adk.blog.service.PostService;
@@ -36,7 +36,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-@WebMvcTest(MainController.class)
+@WebMvcTest(TagController.class)
 public class HttpRequestTests {
 	//Tests
 	static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));

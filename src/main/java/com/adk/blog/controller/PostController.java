@@ -21,15 +21,11 @@ import com.adk.blog.service.PostService;
 @SpringBootApplication
 @RestController
 @RequestMapping("/post")
+@io.swagger.v3.oas.annotations.tags.Tag(name = "Blog Post Controller")
 public class PostController {
 	
 	@Autowired
 	private PostService postService;
-	
-	@GetMapping("/hello")
-    public ResponseEntity<String> hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return new ResponseEntity<>(String.format("Hello %s!", name), HttpStatus.OK);
-    }
 	
 	@PostMapping("/create")
 	public ResponseEntity<Object> create(@RequestBody Post p) {

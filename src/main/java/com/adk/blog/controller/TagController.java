@@ -16,19 +16,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adk.blog.model.Tag;
 import com.adk.blog.service.TagService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @SpringBootApplication
 @RestController
 @RequestMapping("/tag")
+@io.swagger.v3.oas.annotations.tags.Tag(name = "Blog Tag Controller")
 public class TagController {
 	
 	@Autowired
 	private TagService tagService;
 	
-	@GetMapping("/hello")
-    public ResponseEntity<String> hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return new ResponseEntity<>(String.format("Hello %s!", name), HttpStatus.OK);
-    }
-	
+	@Operation(
+			description = "Endpoint to create a new Tag",
+			summary = "Endpoint that takes in and saves a tag object.\r\n"
+					+ "If a tag already exists with the same value or the tag value is empty/null the tag will not be saved."
+			
+	)
 	@PostMapping("/create")
 	public ResponseEntity<Object> create(@RequestBody Tag t) {
         return new ResponseEntity<>(tagService.addTag(t), HttpStatus.OK);

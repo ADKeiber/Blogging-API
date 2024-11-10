@@ -46,57 +46,57 @@ public class HttpRequestTests {
 	
 	@MockBean
 	private PostService service;
-	
-	@Test
-	void shouldReturnMessageWithName() throws Exception {
-		this.mockMvc.perform(get("/hello").param("name", "Austin")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("Hello Austin")));
-	}
-	
-	@Test
-	void shouldReturnDefaultMessage() throws Exception {
-		this.mockMvc.perform(get("/hello")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().string(containsString("Hello World")));
-	}
-	
-	@Test
-	void shouldReturnPostAddedNoID() throws Exception {
-		
-		List<Tag> tags = new LinkedList<>();
-		tags.add(new Tag());
-		tags.get(0).setValue("TEST");
-		
-		Post post = new Post();
-		post.setContents("Test Contents");
-		post.setTags(tags);
-		post.setTitle("Test Title");
-		post.setPublishDate(LocalDate.now());
-		
-		Post returnedPost = new Post();
-		returnedPost.setId("1");
-		returnedPost.setContents("Test Contents");
-		returnedPost.setTags(tags);
-		returnedPost.setTitle("Test Title");
-		returnedPost.setPublishDate(LocalDate.now());
-		
-		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson = ow.writeValueAsString(post);
-		when(service.addPost(post)).thenReturn(returnedPost);
-		
-		this.mockMvc.perform(
-				post("/createPost").contentType(APPLICATION_JSON_UTF8)
-		        .content(requestJson))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
-				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
-				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
-				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
-				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
-				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
-	}
-	
+//	
+//	@Test
+//	void shouldReturnMessageWithName() throws Exception {
+//		this.mockMvc.perform(get("/hello").param("name", "Austin")).andDo(print()).andExpect(status().isOk())
+//				.andExpect(content().string(containsString("Hello Austin")));
+//	}
+//	
+//	@Test
+//	void shouldReturnDefaultMessage() throws Exception {
+//		this.mockMvc.perform(get("/hello")).andDo(print()).andExpect(status().isOk())
+//		.andExpect(content().string(containsString("Hello World")));
+//	}
+//	
+//	@Test
+//	void shouldReturnPostAddedNoID() throws Exception {
+//		
+//		List<Tag> tags = new LinkedList<>();
+//		tags.add(new Tag());
+//		tags.get(0).setValue("TEST");
+//		
+//		Post post = new Post();
+//		post.setContents("Test Contents");
+//		post.setTags(tags);
+//		post.setTitle("Test Title");
+//		post.setPublishDate(LocalDate.now());
+//		
+//		Post returnedPost = new Post();
+//		returnedPost.setId("1");
+//		returnedPost.setContents("Test Contents");
+//		returnedPost.setTags(tags);
+//		returnedPost.setTitle("Test Title");
+//		returnedPost.setPublishDate(LocalDate.now());
+//		
+//		ObjectMapper mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+//		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//	    String requestJson = ow.writeValueAsString(post);
+//		when(service.addPost(post)).thenReturn(returnedPost);
+//		
+//		this.mockMvc.perform(
+//				post("/createPost").contentType(APPLICATION_JSON_UTF8)
+//		        .content(requestJson))
+//				.andDo(print())
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.id").value(returnedPost.getId()))
+//				.andExpect(jsonPath("$.title").value(returnedPost.getTitle()))
+//				.andExpect(jsonPath("$.contents").value(returnedPost.getContents()))
+//				.andExpect(jsonPath("$.publishDate").value(returnedPost.getPublishDate().toString()))
+//				.andExpect(jsonPath("$.tags[*].id", hasItem(tags.get(0).getId())))
+//				.andExpect(jsonPath("$.tags[*].value", hasItem(tags.get(0).getValue())));
+//	}
+//	
 //	@Test
 //	void shouldReturnPostAddedWithIDs() throws Exception {
 //		

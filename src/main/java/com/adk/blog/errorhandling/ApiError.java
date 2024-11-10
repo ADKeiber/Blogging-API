@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 import jakarta.validation.ConstraintViolation;
 import lombok.Data;
 
@@ -18,6 +21,13 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@Schema(
+		implementation = ApiError.class,
+		ref = "API Error",
+		externalDocs = @ExternalDocumentation(
+				description ="Api Error "
+				)
+)
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
 @JsonTypeIdResolver(LowerCaseClassNameResolver.class)
 public class ApiError {

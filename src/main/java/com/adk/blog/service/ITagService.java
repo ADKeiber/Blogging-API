@@ -12,12 +12,14 @@ public interface ITagService {
 	
 	//Read
 	public List<Tag> getAllTags();
-	public List<Tag> getAllTagsForAPost(Post post);
+	public Tag getTagById(String id);
+	public Tag getTagByValue(String value);
 	
 	//Update
 	public Tag editTag(String id, Tag tag);
 	
 	//Delete
-	public Tag removeTag(String id);
+	public void deleteTagById(String id);
+	public void deleteTagByValue(String value);
 	
 }

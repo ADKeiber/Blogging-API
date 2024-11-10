@@ -24,6 +24,9 @@ public class PostService implements IPostService{
 	@Autowired
 	private TagRepo tagRepo;
 	
+	@Autowired
+	private TagService tagService;
+	
 	@Override
 	public Post addPost(Post post) {
 		
@@ -43,7 +46,7 @@ public class PostService implements IPostService{
 			if(tag.getValue() == null || tag.getValue().isBlank())
 				throw new FieldBlankException(Tag.class, "Value", String.class.toString());
 			
-			Tag tagFromRepo = tagRepo.findTagByValue(tag.getValue());
+			Tag tagFromRepo = tagService.getTagByValue(tag.getValue());
 			
 			if(tagFromRepo == null) {
 				tag = tagRepo.save(tag);
@@ -54,15 +57,12 @@ public class PostService implements IPostService{
 				
 		}
 		post.setTags(tags);
-		System.out.println("TAGS: " + post.getTags().toString());
 		return postRepo.save(post);
 	}
 
 	@Override
 	public List<Post> getAllPosts() {
-		List<Post> posts = postRepo.findAll();
-		System.out.println("POSTS:" + posts);
-		return posts;
+		return postRepo.findAll();
 	}
 
 	@Override
@@ -106,9 +106,9 @@ public class PostService implements IPostService{
 
 	@Override
 	public List<Post> getPostsByTagValue(String tagValue) {
-		Tag t = tagRepo.findTagByValue(tagValue);
+		Tag tag = tagService.getTagByValue(tagValue);
 		//TODO DO a check for getting this tag
-		List<Post> posts = postRepo.getPostByTag(t);
+		List<Post> posts = postRepo.getPostByTag(tag);
 		if(posts == null || posts.size() == 0) 
 			throw new EntityNotFoundException(Post.class, "tag value", tagValue);
 		return posts;

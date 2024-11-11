@@ -33,9 +33,12 @@ public class TagService implements ITagService{
 
 	@Override
 	public Tag editTag(String id, Tag tag) {
+		if(!tagRepo.existsById(id))
+			throw new EntityNotFoundException(Tag.class, "id", id); 
+		if(tag.getValue() == null || tag.getValue().isBlank())
+			throw new FieldBlankException(Post.class, "value", String.class.toString());
 		tag.setId(id);
 		Tag returnedTag = tagRepo.save(tag);
-		//TODO Maybe create an exception for returned data != original data with new id
 		return returnedTag;
 	}
 
@@ -57,15 +60,17 @@ public class TagService implements ITagService{
 
 	@Override
 	public void deleteTagById(String id) {
+		if(!tagRepo.existsById(id))
+			throw new EntityNotFoundException(Tag.class, "id", id); 
 		tagRepo.deleteById(id);
-		//TODO... I feel like something should be checked here
 	}
 
 	@Override
 	@Transactional
 	public void deleteTagByValue(String value) {
+		if(!tagRepo.findByValue(value).isPresent())
+			throw new EntityNotFoundException(Tag.class, "value", value); 
 		tagRepo.deleteByValue(value);
-		//TODO... I feel like something should be checked here
 	}
 
 }

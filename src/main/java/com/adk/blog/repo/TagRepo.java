@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.adk.blog.model.Tag;
 
+/**
+ * Tag Repository interface used to interact with the tag repository
+ */
 @Repository
 public interface TagRepo extends ListCrudRepository<Tag, String>{
 	@Query("SELECT t FROM Tag t WHERE t.value = :value")

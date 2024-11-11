@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adk.blog.errorhandling.ApiError;
@@ -27,6 +26,9 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+/**
+ * Post controller that is used to house end points a user can call to "Create, Read, Update, and Delete" all posts 
+ */
 @SpringBootApplication
 @RestController
 @RequestMapping("/post")

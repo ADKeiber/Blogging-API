@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,7 +25,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import lombok.extern.slf4j.Slf4j;
 
-//TODO: DOCS for each method
+/**
+ * Handles the different exceptions that may occur in an API
+ * Taken and modified from 
+ * https://github.com/brunocleite/spring-boot-exception-handling/blob/master/src/main/java/com/example/springbootexceptionhandling/RestExceptionHandler.java
+ */
 @Slf4j
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)

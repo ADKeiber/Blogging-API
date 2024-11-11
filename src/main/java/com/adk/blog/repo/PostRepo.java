@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 import com.adk.blog.model.Post;
 import com.adk.blog.model.Tag;
 
+/**
+ * Post Repository interface used to interact with the post repository
+ */
 @Repository
 public interface PostRepo extends ListCrudRepository<Post, String>{
 	@Query("SELECT p FROM Post p WHERE p.title = :title")

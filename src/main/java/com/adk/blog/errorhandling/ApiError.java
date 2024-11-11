@@ -7,6 +7,9 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 
+/**
+ * Data class used to return API Error information when an API end point fails to do what is intended
+ */
 @Data
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
 @JsonTypeIdResolver(LowerCaseClassNameResolver.class)
@@ -21,7 +24,7 @@ public class ApiError {
     private ApiError() {
         timestamp = LocalDateTime.now();
     }
-
+    
     public ApiError(HttpStatus status) {
         this();
         this.status = status;

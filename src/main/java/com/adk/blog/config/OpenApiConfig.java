@@ -6,6 +6,9 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
 
+/**
+ * Configuration Class used to set OpenAPI Information
+ */
 @OpenAPIDefinition(
 	info = @Info(
 			contact = @Contact(

@@ -23,6 +23,9 @@ import com.adk.blog.service.TagService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
+/**
+ * Tag controller that is used to house end points a user can call to "Create, Read, Update, and Delete" all tags
+ */
 @SpringBootApplication
 @RestController
 @RequestMapping("/tag")

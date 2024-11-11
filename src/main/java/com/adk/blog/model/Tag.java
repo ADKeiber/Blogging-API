@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data Object that represents a Blog Post's tag
+ */
 @Entity
 @Table(name="Tag")
 @Data @NoArgsConstructor @AllArgsConstructor

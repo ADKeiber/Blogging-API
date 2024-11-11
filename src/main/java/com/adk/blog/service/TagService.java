@@ -13,12 +13,19 @@ import com.adk.blog.model.Post;
 import com.adk.blog.model.Tag;
 import com.adk.blog.repo.TagRepo;
 
+/**
+ * Service class used to interact with the tag repository 
+ */
 @Service
 public class TagService implements ITagService{
 	
 	@Autowired
 	private TagRepo tagRepo;
 
+	/**
+	 * Adds a tag after verifying the required value is present and the tag doesn't already exist.
+	 * If the tag already exists that tag is returned
+	 */
 	@Override
 	public Tag addTag(Tag tag) {
 		if(tag.getValue() == null || tag.getValue().isBlank())
@@ -30,11 +37,17 @@ public class TagService implements ITagService{
 		return tagRepo.save(tag);
 	}
 
+	/**
+	 * Gets all tags
+	 */
 	@Override
 	public List<Tag> getAllTags() {
 		return tagRepo.findAll();
 	}
 
+	/**
+	 * Edits a tag if a tag with the id exists and the required fields are present. 
+	 */
 	@Override
 	public Tag editTag(String id, Tag tag) {
 		if(!tagRepo.existsById(id))
@@ -46,6 +59,9 @@ public class TagService implements ITagService{
 		return returnedTag;
 	}
 
+	/**
+	 * Gets a tag with the given ID. If it doesn't exist an exception is thrown
+	 */
 	@Override
 	public Tag getTagById(String id) {
 		Optional<Tag> tag = tagRepo.findById(id);
@@ -54,6 +70,9 @@ public class TagService implements ITagService{
 		return tag.get();
 	}
 
+	/**
+	 * Gets a tag with the given value. If it doesn't exist an exception is thrown
+	 */
 	@Override
 	public Tag getTagByValue(String value) {
 		Optional<Tag> tag = tagRepo.findByValue(value);
@@ -62,6 +81,9 @@ public class TagService implements ITagService{
 		return tag.get();
 	}
 
+	/**
+	 * Deletes a tag with the given ID. If it doesn't exist an exception is thrown
+	 */
 	@Override
 	public void deleteTagById(String id) {
 		if(!tagRepo.existsById(id))
@@ -69,6 +91,9 @@ public class TagService implements ITagService{
 		tagRepo.deleteById(id);
 	}
 
+	/**
+	 * Deletes a tag with the given value. If it doesn't exist an exception is thrown
+	 */
 	@Override
 	@Transactional
 	public void deleteTagByValue(String value) {

@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.adk.blog.model.Tag;
 
+/**
+ * Interface used to establish methods used to interact with tag database
+ */
 public interface ITagService {
 	
 	//Create

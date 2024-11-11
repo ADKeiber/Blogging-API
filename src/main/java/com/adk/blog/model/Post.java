@@ -17,6 +17,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data Object that represents a Blog's Post
+ */
 @Entity
 @Table(name="Post")
 @Data @NoArgsConstructor @AllArgsConstructor

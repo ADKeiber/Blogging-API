@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.adk.blog.model.Post;
 
+/**
+ * Interface used to establish methods used to interact with post database
+ */
 public interface IPostService {
 	
 	//Create

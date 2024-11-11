@@ -13,8 +13,10 @@ import com.adk.blog.errorhandling.FieldBlankException;
 import com.adk.blog.model.Post;
 import com.adk.blog.model.Tag;
 import com.adk.blog.repo.PostRepo;
-import com.adk.blog.repo.TagRepo;
 
+/**
+ * Service class used to interact with the post repository 
+ */
 @Service
 public class PostService implements IPostService{
 
@@ -22,11 +24,13 @@ public class PostService implements IPostService{
 	private PostRepo postRepo;
 	
 	@Autowired
-	private TagRepo tagRepo;
-	
-	@Autowired
 	private TagService tagService;
 	
+	/**
+	 * Implements add post method.
+	 * Adds a post to the repository and verifies all required fields are present.
+	 * Also creates any new tags that don't already exists in the tag table.
+	 */
 	@Override
 	public Post addPost(Post post) {
 		
@@ -46,11 +50,17 @@ public class PostService implements IPostService{
 		return postRepo.save(post);
 	}
 
+	/**
+	 * Returns all posts in the repository's post table
+	 */
 	@Override
 	public List<Post> getAllPosts() {
 		return postRepo.findAll();
 	}
 
+	/**
+	 * Gets all posts that equal a specific title
+	 */
 	@Override
 	public List<Post> getPostsByTitle(String title) {
 		List<Post> posts = postRepo.getPostsByTitle(title);
@@ -60,6 +70,9 @@ public class PostService implements IPostService{
 		return posts;
 	}
 
+	/**
+	 * Gets all posts that are from a specific date and validates that it exists
+	 */
 	@Override
 	public List<Post> getPostsByDate(LocalDate localDate) {
 		List<Post> posts = postRepo.getPostsByDate(localDate);
@@ -68,6 +81,9 @@ public class PostService implements IPostService{
 		return posts;
 	}
 
+	/**
+	 * Gets a post by a specific id and verifies it exists
+	 */
 	@Override
 	public Post getPostById(String id) {
 		Optional<Post> post = postRepo.findById(id);
@@ -76,6 +92,9 @@ public class PostService implements IPostService{
 		return post.get();
 	}
 
+	/**
+	 * Updates a post with the given id to the post. Validates the required fields exist
+	 */
 	@Override
 	public Post editPost(String id, Post post) {
 		if(!postRepo.existsById(id))
@@ -90,29 +109,16 @@ public class PostService implements IPostService{
 		
 		List<Tag> tags = new LinkedList<>();
 		for(int i = 0; i < post.getTags().size(); i++) {
-			
-			Tag tag = post.getTags().get(i);
-			
-			if(tag.getValue() == null || tag.getValue().isBlank())
-				throw new FieldBlankException(Tag.class, "Value", String.class.toString());
-			System.out.println("1");
-			if(!tagRepo.findByValue(tag.getValue()).isEmpty()) {
-				System.out.println("2");
-				tag = tagRepo.save(tag);
-				tags.add(tag);
-			} else {
-				System.out.println("3");
-				tags.add(tagService.addTag(tag));
-				System.out.println("4");
-			}
-				
+			tags.add(tagService.addTag(post.getTags().get(i)));
 		}
 		post.setTags(tags);
 		Post returnedPost = postRepo.save(post);
-		//TODO Maybe create an exception for returned data != original data with new id
 		return returnedPost;
 	}
 
+	/**
+	 * Deletes a post with the given id. It also verifies that the post with the given id exists
+	 */
 	@Override
 	public void deletePostById(String id) {
 		if(!postRepo.existsById(id))
@@ -120,6 +126,9 @@ public class PostService implements IPostService{
 		postRepo.deleteById(id);
 	}
 
+	/**
+	 * Retrieves all posts that contain a tag with the given value.
+	 */
 	@Override
 	public List<Post> getPostsByTagValue(String tagValue) {
 		Tag tag = tagService.getTagByValue(tagValue);

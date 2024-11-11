@@ -40,21 +40,7 @@ public class PostService implements IPostService{
 		
 		List<Tag> tags = new LinkedList<>();
 		for(int i = 0; i < post.getTags().size(); i++) {
-			
-			Tag tag = post.getTags().get(i);
-			
-			if(tag.getValue() == null || tag.getValue().isBlank())
-				throw new FieldBlankException(Tag.class, "Value", String.class.toString());
-			
-			Tag tagFromRepo = tagService.getTagByValue(tag.getValue());
-			
-			if(tagFromRepo == null) {
-				tag = tagRepo.save(tag);
-				tags.add(tag);
-			} else {
-				tags.add(tagFromRepo);
-			}
-				
+			tags.add(tagService.addTag(post.getTags().get(i)));
 		}
 		post.setTags(tags);
 		return postRepo.save(post);
@@ -92,7 +78,36 @@ public class PostService implements IPostService{
 
 	@Override
 	public Post editPost(String id, Post post) {
+		if(!postRepo.existsById(id))
+			throw new EntityNotFoundException(Post.class, "id", id);
 		post.setId(id);
+		if(post.getTitle() == null || post.getTitle().isBlank())
+			throw new FieldBlankException(Post.class, "Title", String.class.toString());
+		if(post.getContents() == null || post.getContents().isBlank())
+			throw new FieldBlankException(Post.class, "Contents", String.class.toString());
+		if(post.getPublishDate() == null)
+			throw new FieldBlankException(Post.class, "Publish Date", LocalDate.class.toString());
+		
+		List<Tag> tags = new LinkedList<>();
+		for(int i = 0; i < post.getTags().size(); i++) {
+			
+			Tag tag = post.getTags().get(i);
+			
+			if(tag.getValue() == null || tag.getValue().isBlank())
+				throw new FieldBlankException(Tag.class, "Value", String.class.toString());
+			System.out.println("1");
+			if(!tagRepo.findByValue(tag.getValue()).isEmpty()) {
+				System.out.println("2");
+				tag = tagRepo.save(tag);
+				tags.add(tag);
+			} else {
+				System.out.println("3");
+				tags.add(tagService.addTag(tag));
+				System.out.println("4");
+			}
+				
+		}
+		post.setTags(tags);
 		Post returnedPost = postRepo.save(post);
 		//TODO Maybe create an exception for returned data != original data with new id
 		return returnedPost;
@@ -100,14 +115,14 @@ public class PostService implements IPostService{
 
 	@Override
 	public void deletePostById(String id) {
+		if(!postRepo.existsById(id))
+			throw new EntityNotFoundException(Post.class, "id", id);
 		postRepo.deleteById(id);
-		//TODO... I feel like something should be checked here
 	}
 
 	@Override
 	public List<Post> getPostsByTagValue(String tagValue) {
 		Tag tag = tagService.getTagByValue(tagValue);
-		//TODO DO a check for getting this tag
 		List<Post> posts = postRepo.getPostByTag(tag);
 		if(posts == null || posts.size() == 0) 
 			throw new EntityNotFoundException(Post.class, "tag value", tagValue);

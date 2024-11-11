@@ -23,6 +23,10 @@ public class TagService implements ITagService{
 	public Tag addTag(Tag tag) {
 		if(tag.getValue() == null || tag.getValue().isBlank())
 			throw new FieldBlankException(Post.class, "value", String.class.toString());
+		Optional<Tag> returnedTag = tagRepo.findByValue(tag.getValue());
+		if(returnedTag.isPresent()) {
+			return returnedTag.get();
+		}
 		return tagRepo.save(tag);
 	}
 

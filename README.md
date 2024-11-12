@@ -5,11 +5,11 @@ Personal Blogging API that allows a user to complete CRUD operations on data in 
 # Overview
 This application is part of a learning experience and is the starting point for my backend portfolio. The blogging API is a simple application that allows a User to perform CRUD operations on a database that stores Blog Posts and the tags associated with them. <br>
 
-Notable things about the application:
-Spring Boot
-Java 17
-Swagger API Documentation
-MySQL database
+Notable things about the application: <br>
+Spring Boot <br>
+Java 17 <br>
+Swagger API Documentation <br>
+MySQL database <br>
 
 **REQUIREMENTS TO RUN LOCALLY** <br>
 MySQL is installed and running. <br>

@@ -32,7 +32,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @SpringBootApplication
 @RestController
 @RequestMapping("/post")
-@io.swagger.v3.oas.annotations.tags.Tag(name = "Blog Post Controller")
+@io.swagger.v3.oas.annotations.tags.Tag(name = "Blog Post Controller") 
 public class PostController {
 
 	@Autowired

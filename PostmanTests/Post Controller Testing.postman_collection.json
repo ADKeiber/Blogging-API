@@ -1,0 +1,421 @@
+{
+	"info": {
+		"_postman_id": "4b1e04f2-7163-46a8-8fee-0763676e6199",
+		"name": "Post Controller Testing",
+		"description": "# About this collection\n\nThis collection helps you set up contract tests to ensure that two separate systems are compatible and can communicate with one another.\n\n## **Using the collection**\n\n**Step 1:** Send the sample requests and view the response and test results.\n\n**Step 2:** Replace the sample request URLs with your desired API endpoints.\n\n**Step 3:** Customize the tests in the \"Tests\" tab if needed. Don't forget to save your changes.\n\n### Resources\n\n[Scripting in Postman](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)\n\n[Test script examples](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/)\n\n[Postman Sandbox API reference](https://learning.postman.com/docs/sending-requests/grpc/postman-sandbox-api/#writing-assertions)\n\n[Using the Collection Runner](https://learning.postman.com/docs/collections/running-collections/intro-to-collection-runs/)\n\n[  \n](https://postman.postman.co/documentation/24552533-5bead607-0197-4e1d-87d4-3160bc7631c1?entity=&branch=&version=)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16694008"
+	},
+	"item": [
+		{
+			"name": "Create Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Validate that the response is json object",
+							"pm.test(\"Response is a json object\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\" : \"Test Title1\",\r\n  \"contents\" : \"Test Contents\",\r\n  \"publishDate\" : [ 2024, 11, 9 ],\r\n  \"tags\" : [ {\r\n    \"value\" : \"test123\"\r\n  } ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/post/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"create"
+					],
+					"query": [
+						{
+							"key": "nam",
+							"value": "Austin",
+							"disabled": true
+						}
+					]
+				},
+				"description": "The tests in this request validate that:\n\n- the response code is 200\n- the response is a JSON object\n- the response has an 'arg' object\n- the response has 'headers' object\n- the response has a 'URL' property"
+			},
+			"response": []
+		},
+		{
+			"name": "Update By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Validate that the response is json object",
+							"pm.test(\"Response is a json object\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\" : \"title\",\r\n  \"contents\" : \"Test contents12345\",\r\n  \"publishDate\" : [ 2024, 11, 9 ],\r\n  \"tags\" : [ {\r\n    \"value\" : \"test\"\r\n  } ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/post/update/fb0757ab-aa78-4b03-9bd1-0ead992415e6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"update",
+						"fb0757ab-aa78-4b03-9bd1-0ead992415e6"
+					],
+					"query": [
+						{
+							"key": "nam",
+							"value": "Austin",
+							"disabled": true
+						}
+					]
+				},
+				"description": "The tests in this request validate that:\n\n- the response code is 200\n- the response is a JSON object\n- the response has an 'arg' object\n- the response has 'headers' object\n- the response has a 'URL' property"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Response Code should be 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/post/getAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"getAll"
+					],
+					"query": [
+						{
+							"key": "foo",
+							"value": "bar",
+							"disabled": true
+						},
+						{
+							"key": "baz",
+							"value": "value",
+							"disabled": true
+						}
+					]
+				},
+				"description": "The tests in the request validate the response code and the data returned in the response is the same as the one being sent."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Posts By Tag Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Response Code should be 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/post/getByTagValue/test123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"getByTagValue",
+						"test123"
+					],
+					"query": [
+						{
+							"key": "foo",
+							"value": "bar",
+							"disabled": true
+						},
+						{
+							"key": "baz",
+							"value": "value",
+							"disabled": true
+						}
+					]
+				},
+				"description": "The tests in the request validate the response code and the data returned in the response is the same as the one being sent."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Posts By Title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/post/getByTitle/Test Title1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"getByTitle",
+						"Test Title1"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/post/getById/30ba1748-6d2e-4109-a82c-b40905a90806",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"getById",
+						"30ba1748-6d2e-4109-a82c-b40905a90806"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Post By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/post/deleteById/703c9ffd-7c89-4c47-b182-414898fcb04b",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"deleteById",
+						"703c9ffd-7c89-4c47-b182-414898fcb04b"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Posts By Date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foo1",
+							"value": "bar1",
+							"type": "text"
+						},
+						{
+							"key": "foo2",
+							"value": "bar2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/post/getByDate/2024-11-09",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"getByDate",
+						"2024-11-09"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-echo.com"
+		}
+	]
+}

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -36,7 +35,7 @@ public class Post {
 	
 	private LocalDate publishDate;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany()
 	@JoinTable(
 			name = "post_tag",
 			joinColumns = @JoinColumn(name = "post_id"),

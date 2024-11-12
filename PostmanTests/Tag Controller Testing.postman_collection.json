@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "3d53f6f0-4a23-4b1b-8b87-91325c0652e8",
+		"name": "Tag Controller Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16694008"
+	},
+	"item": [
+		{
+			"name": "Create Tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"value\": \"ahh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tag/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tag",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Tag By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"value\": \"update\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tag/update/1f3d561d-9b2a-4ff7-9417-2282f9ee2d21",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tag",
+						"update",
+						"1f3d561d-9b2a-4ff7-9417-2282f9ee2d21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Tags",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tag/getAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tag",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Tag By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tag/getById/a2b777cc-1dc2-4c26-9edf-7b47cf1db627",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tag",
+						"getById",
+						"a2b777cc-1dc2-4c26-9edf-7b47cf1db627"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Tag By Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tag/getByValue/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tag",
+						"getByValue",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Tag By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tag/deleteById/3dc6b885-4ec1-4465-94b5-be222c930915",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tag",
+						"deleteById",
+						"3dc6b885-4ec1-4465-94b5-be222c930915"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Tag By Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate that the response code should be 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tag/deleteByValue/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tag",
+						"deleteByValue",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

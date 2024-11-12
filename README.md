@@ -8,7 +8,7 @@ This application is part of a learning experience and is the starting point for 
 Notable things about the application: <br>
 Spring Boot <br>
 Java 17 <br>
-Swagger API Documentation <br>
+OpenAPI Documentation <br>
 MySQL database <br>
 
 **REQUIREMENTS TO RUN LOCALLY** <br>
